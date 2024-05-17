@@ -16,13 +16,12 @@ while($row = mysqli_fetch_assoc($result)) {
     $date = $row["date"];
     $registration_plate = $row["registration_plate"];
 
-    echo "<h4>ID: " . $id . "</h4>";
-    echo "Name: " . $name . "<br>";
-    echo "Email: " . $email . "<br>";
-    echo "Date: " . $date . "<br>";
-    echo "Registration Plate: " . $registration_plate . "<br>";
-    echo "<br>";
+        echo "<h4>ID: " . $id . "</h4>";
+        echo "Name: " . $name . "<br>";
+        echo "Email: " . $email . "<br>";
+        echo "Date: " . $date . "<br>";
+        echo "Registration Plate: " . $registration_plate . "<br>";
+        echo '<a href="edit.php?id=' . $id . '">Edit</a>'; // Fixed the missing quotation mark and concatenated the $id variable properly
+        echo "<br>";
+    }
 
-
-}
-    

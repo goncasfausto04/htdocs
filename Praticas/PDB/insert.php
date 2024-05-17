@@ -1,12 +1,5 @@
 <?php
-
-//connnect to database
-$link = mysqli_connect( "localhost" , "root" , "" , "caroilchangedb" );
-
-if (!$link) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-
+include 'config.php';
 //GET VAR FROM FORM
 $name = $_REQUEST['name'];
 $email = $_REQUEST['email'];
@@ -21,7 +14,10 @@ VALUES ('$name', '$email', '$date', '$registration_plate')";
 $ret = mysqli_query($link, $sql);
 
 if($ret){
-    echo "New record created successfully";
+    $last_id = mysqli_insert_id($link);
+    echo "Thank you. the following query data is: 
+    $name, $email, $date, $registration_plate. <br>
+    You have the number $last_id, that you should use as a reference.";
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($link);
 }

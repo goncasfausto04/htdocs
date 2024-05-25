@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login/Create Account</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="register.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="buttons">
+        <input type="button" id="loginfunc" class="btn active" value="Login" />
+        <input type="button" id="registerfunc" class="btn" value="Register" />
+      </div>
+      <div class="register">
+        <form
+          action="register.php"
+          method="POST"
+        >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm-password"
+            placeholder="Confirm Password"
+            required
+          />
+          <input type="submit" value="Create Account" />
+        </form>
+      </div>
+      <div class="login">
+        <form action="login.php" method="POST">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            required
+          />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <input type="submit" value="Login" />
+        </form>
+        <p id="error-message" style="color: red;"></p>
+      </div>
+      <script>
+        // Get the error message from the URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorMessage = urlParams.get('error');
+        if (errorMessage) {
+            document.getElementById('error-message').textContent = errorMessage;
+        }
+    </script>
+    </div>
+  </body>
+  <script>
+    function validateForm() {
+      var password = document.getElementById("password").value;
+      var confirmPassword = document.getElementById("confirm-password").value;
+
+      if (password != confirmPassword) {
+        alert("Passwords do not match.");
+        return false;
+      } else {
+        alert("Account created successfully.");
+      }
+
+      return true;
+    }
+
+    $("#loginfunc").click(function () {
+      $(".register").css("display", "none");
+      $(".login").css("display", "block");
+      $(this).addClass("active");
+      $("#registerfunc").removeClass("active");
+    });
+
+    $("#registerfunc").click(function () {
+      $(".login").css("display", "none");
+      $(".register").css("display", "block");
+      $(this).addClass("active");
+      $("#loginfunc").removeClass("active");
+    });
+  </script>
+</html>
+

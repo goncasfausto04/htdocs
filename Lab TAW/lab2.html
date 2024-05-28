@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Page</title>
+    <link rel="stylesheet" href="lab2.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.PNG" alt="Logo" width="auto" height="80px">
+        </div>
+        <nav>
+            <span><a href="#">WHO WE ARE</a></span> | 
+            <span><a href="#">WHAT WE DO</a></span> | 
+            <span><a href="#">CONTACTS</a></span>
+        </nav>
+    </header>
+    <div class="corpo">
+        <aside class="esquerda">
+            <h1>4AMIKOJ</h1>
+            <h2>COME AND WORK WITH US</h2>
+            <p id="name-display">Gonçalo Faustino | Gonçalo Neto | Miguel Pires | Bernardo Coelho | Tomás Silva</p>
+            <div class="group-photo">
+                <div>
+                    <img src="group.jpeg" class="pessoa" alt="Group Photo 1">
+                </div>
+                <div>
+                    <img src="goncas.png" class="pessoa" alt="Group Photo 2">
+                </div>
+                <div>
+                    <img src="goncasneto.png" class="pessoa" alt="Group Photo 3">
+                </div>
+                <div>
+                    <img src="miguel.png" class="pessoa" alt="Group Photo 4">
+                </div>
+                <div>
+                    <img src="bernardo.png" class="pessoa" alt="Group Photo 4">
+                </div>
+                <div>
+                    <img src="tomas.png" class="pessoa" alt="Group Photo 4">
+                </div>
+            </div>
+            <br>
+
+            <div id="cycle-indicator">
+                <span id="indicator-0" class="dot active"></span>
+                <span id="indicator-1" class="dot"></span>
+                <span id="indicator-2" class="dot"></span>
+                <span id="indicator-3" class="dot"></span>
+                <span id="indicator-4" class="dot"></span>
+                <span id="indicator-5" class="dot"></span>
+            </div>
+            <button id="change-button">Meet the Team Elements</button>
+        </aside>
+        <aside class="direita">
+            
+            <form>
+                <h2>ASK INFO</h2>
+                <label for="email">Email:</label><br>
+                <input type="text" id="email" name="email"><br>
+                <label for="question">Question:</label><br>
+                <textarea id="question" name="question" rows="4"></textarea><br>
+                <label for="request">Price request?</label>
+                <input type="checkbox" id="request" name="request"><br><br>
+                 <input type="submit" value="ASK">
+                 <br><br>
+                 <a href="#" id="more-info-link">More Information</a>
+             </form>
+             <br>
+            
+            <div id="more-info" style="display: none;">
+                <h2>More Information</h2>
+                <p>PHONE: 5555205025 <br> FAX: 555525725</p>
+                <a href="#" id="ask-meet-link">Ask to meet us</a>
+            </div>
+
+            <script>
+            $(document).ready(function() {
+                $('#more-info-link').click(function(e) {
+                    e.preventDefault();
+                    $('form').hide();
+                    $('#more-info').show();
+                });
+
+                $('#ask-meet-link').click(function(e) {
+                    e.preventDefault();
+                    $('#more-info').hide();
+                    $('form').show();
+                });
+            });
+            </script>
+            
+        </aside>
+        
+    </div>
+
+    <footer>
+        © Group 4AMIKOJ 2024<br>
+        Made by &lt;Gonçalo Faustino - 20231721;Tomás Silva -20231673;Gonçalo Neto - 20231686; Miguel Pires - 20231718; Bernardo Coelho - 20231736 &gt; 
+        <div id="countdown">20</div>
+    </footer>
+
+    <script>
+
+$(document).ready(function() {
+    var names = ["Gonçalo Faustino | Gonçalo Neto | Miguel Pires | Bernardo Coelho | Tomás Silva","Gonçalo Faustino","Gonçalo Neto","Miguel Pires","Bernardo Coelho", "Tomás Silva"];
+    var index = 0;
+
+    // esconder imagens excepto a primeira
+    $('.pessoa').each(function(i) {
+        if (i != 0) {
+            $(this).hide();
+        }
+    });
+
+    function cycleImagesAndNames() {
+        var oldIndex = index;
+        index = (index + 1) % names.length;
+        $('#name-display').text(names[index]);
+
+        // antigas imagens para a esquerda
+        $('.pessoa').eq(oldIndex).animate({ 'left': '-100%' }, 500, function() {
+            $(this).hide().css('left', '0');
+
+            // novas imagens desde a direita
+            $('.pessoa').eq(index).css({ 'left': '100%', 'display': 'block' }).animate({ 'left': '0' }, 500);
+        });
+        
+        // Atualizar indicadores de imagem
+        $('.dot').removeClass('active'); // Remove todas as classes 'active'
+        $('#indicator-' + index).addClass('active'); // Adiciona 'active' ao indicador atual
+    
+    }
+
+//butão do ciclo de imagens
+     
+    $('#change-button').click(cycleImagesAndNames); 
+});
+
+    var countdownNumber = 20;
+    var countdownElement = $('#countdown');
+
+    function startCountdown() {
+        var countdown = setInterval(function() {
+            countdownNumber--;
+            countdownElement.text(countdownNumber);
+
+            if (countdownNumber <= 0) {
+                clearInterval(countdown);
+                shakeTitle();
+                countdownNumber = 20;
+                startCountdown();
+            }
+        }, 1000);
+    }
+
+    function shakeTitle() {
+        var times = 4;  
+        var distance = 10;
+        var duration = 150; 
+
+        for(var iter=0;iter<(times/2);iter++) {
+            $('#ask-meet-link').animate({
+                left: "-=" + distance
+            }, duration).animate({
+                left: "+=" + distance * 2
+            }, duration * 2).animate({
+                left: "-=" + distance
+            }, duration);
+        }
+    }
+
+    startCountdown();
+
+    </script>
+
+</body>
+</html>

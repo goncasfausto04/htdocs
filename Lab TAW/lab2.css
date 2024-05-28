@@ -1,0 +1,157 @@
+body {
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+    width: 1000px;
+}
+
+img {
+    border: 1px black solid;
+}
+
+h1, h2 {
+    color: #5B9BD5;
+}
+
+header {
+    background-color: white;
+    display: flex;
+    padding: 10px 0;
+}
+
+.logo {
+    margin-left: 15px;
+}
+
+nav {
+    margin-left: 160px;
+    margin-top: 20px;
+}
+
+nav span {
+    font-size: larger;
+    font-weight: 700;
+    margin: 0 10px;
+    text-align: center;
+}
+
+.corpo {
+    background-color: white;
+    box-sizing: border-box;
+    display: flex;
+    margin: 0 auto;
+    padding: 20px;
+    width: 1000px;
+}
+
+.esquerda {
+    padding: 20px;
+    width: calc(66% - 10px); 
+}
+
+.direita {
+    padding-right: 20px;
+    width: calc(34% - 10px); 
+}
+
+form {
+    margin-top: 20px;
+}
+
+textarea {
+    resize: none;
+}
+
+input[type="checkbox"] {
+    border: 1px solid #5B9BD5;
+}
+
+input[type="text"], textarea {
+    border: #5B9BD5 1px solid;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
+}
+
+input[type="submit"] {
+    background-color: hsl(209, 59%, 60%);
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px 20px;
+}   
+
+footer {
+    font-size: small;
+    background-color: white;
+    clear: both;
+    color: black;
+    padding: 10px;
+    text-align: left;
+}
+
+.group-photo {
+    width: 365px;
+    height: 255px;
+    
+    position: relative;
+    overflow: hidden;
+    transition: left 0.5s ease-in-out;
+}
+
+.pessoa {
+    border: 1px solid black;
+    position: absolute;
+    width: auto;
+    height: 250px;
+}
+
+#change-button{background-color: #5B9BD5; color: white; padding: 5px; border: none; cursor: pointer;}
+
+#countdown{
+    display: flex;
+    justify-content: end;}
+
+#ask-meet-link{
+    position: relative;}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot.active {
+    background-color: #717171;
+}
+    
+@media only screen and (max-width: 800px) {
+    body {
+        width: auto;
+    }
+
+    .corpo {
+        flex-direction: column;
+    }
+
+    .direita, .esquerda {
+        width: 100%;
+    }
+
+    form {
+        width: fit-content;
+    }
+
+    nav {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    nav span {
+        margin: 0 10px;
+    }
+}

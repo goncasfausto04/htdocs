@@ -19,6 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
         echo "<a href=homepage.php>Go Back to Homepage</a>";
-    }  
+    }
 }
 ?>

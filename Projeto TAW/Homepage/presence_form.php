@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +11,12 @@
             background-color: #f4f4f4;
             padding: 20px;
         }
+
         h2 {
             text-align: center;
             margin-bottom: 30px;
         }
+
         form {
             max-width: 400px;
             margin: 0 auto;
@@ -22,11 +25,13 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
+
         input[type="text"],
         input[type="email"],
         input[type="datetime-local"] {
@@ -37,9 +42,11 @@
             border-radius: 5px;
             box-sizing: border-box;
         }
+
         input[type="radio"] {
             margin-right: 5px;
         }
+
         button[type="submit"] {
             background-color: #007bff;
             color: #fff;
@@ -48,9 +55,11 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         button[type="submit"]:hover {
             background-color: #0056b3;
         }
+
         a {
             display: block;
             text-align: center;
@@ -58,11 +67,13 @@
             text-decoration: none;
             color: #007bff;
         }
+
         a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
+
 <body>
     <h2>Add Presence</h2>
     <form action="add_presence.php" method="POST">
@@ -83,4 +94,5 @@
     </form>
     <a href="homepage.php">Go Back to Homepage</a>
 </body>
+
 </html>

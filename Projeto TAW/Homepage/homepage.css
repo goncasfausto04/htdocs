@@ -74,8 +74,6 @@ footer p {
   margin-left: 103.25px;
 }
 
-
-
 @media screen and (max-width: 768px) {
   header #branding,
   header nav,
@@ -94,5 +92,3 @@ footer p {
     font-size: medium;
   }
 }
-
-

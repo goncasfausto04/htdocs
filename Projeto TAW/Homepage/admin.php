@@ -82,6 +82,7 @@ $result = $conn->query("SELECT * FROM sessions");
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -92,20 +93,30 @@ $result = $conn->query("SELECT * FROM sessions");
             width: 20%;
             border-collapse: collapse;
         }
-        th, td {
+
+        th,
+        td {
             padding: 10px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
+
         th {
             background-color: #f2f2f2;
         }
+
         form {
             display: inline-block;
         }
-        .add{font-size: 15px;line-height: 2;display:flex}
+
+        .add {
+            font-size: 15px;
+            line-height: 2;
+            display: flex
+        }
     </style>
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -118,14 +129,11 @@ $result = $conn->query("SELECT * FROM sessions");
                     <li><a href="sessions.php">Sessions</a></li>
                     <li><a href="location.php">Location</a></li>
                     <li><a href="otherinfo.php">Other Informations</a></li>
-                    <a href="profile.php"
-                ><li style="margin-top: -7px">
-                  <img
-                    src="./images/profile.png"
-                    alt="profile"
-                    width="30px"
-                  /></li
-              ></a>
+                    <a href="profile.php">
+                        <li style="margin-top: -7px">
+                            <img src="./images/profile.png" alt="profile" width="30px" />
+                        </li>
+                    </a>
                 </ul>
             </nav>
         </div>
@@ -150,38 +158,44 @@ $result = $conn->query("SELECT * FROM sessions");
                 </thead>
                 <tbody>
                     <?php while ($row = $result->fetch_assoc()): ?>
-                    <tr>
-                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                            <td><input type="text" name="session_name" value="<?php echo $row['session']; ?>" required></td>
-                            <td><input type="datetime-local" name="session_date" value="<?php echo date('Y-m-d\TH:i', strtotime($row['date'])); ?>" required></td>
-                            <td><input type="text" name="session_room" value="<?php echo $row['room']; ?>" required></td>
-                            <td><input type="text" name="session_speaker" value="<?php echo $row['speaker']; ?>" required></td>
-                            <td><input type="text" name="session_article" value="<?php echo $row['article']; ?>" required></td>
-                            <td>
-                                <input type="hidden" name="session_id" value="<?php echo $row['id']; ?>">
-                                <button type="submit" name="update_session">Update</button>
-                                <button type="submit" name="delete_session" onclick="return confirm('Are you sure you want to delete this session?');">Delete</button>
-                            </td>
-                        </form>
-                    </tr>
+                        <tr>
+                            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                <td><input type="text" name="session_name" value="<?php echo $row['session']; ?>" required>
+                                </td>
+                                <td><input type="datetime-local" name="session_date"
+                                        value="<?php echo date('Y-m-d\TH:i', strtotime($row['date'])); ?>" required></td>
+                                <td><input type="text" name="session_room" value="<?php echo $row['room']; ?>" required>
+                                </td>
+                                <td><input type="text" name="session_speaker" value="<?php echo $row['speaker']; ?>"
+                                        required></td>
+                                <td><input type="text" name="session_article" value="<?php echo $row['article']; ?>"
+                                        required></td>
+                                <td>
+                                    <input type="hidden" name="session_id" value="<?php echo $row['id']; ?>">
+                                    <button type="submit" name="update_session">Update</button>
+                                    <button type="submit" name="delete_session"
+                                        onclick="return confirm('Are you sure you want to delete this session?');">Delete</button>
+                                </td>
+                            </form>
+                        </tr>
                     <?php endwhile; ?>
                 </tbody>
             </table>
             <h2>Add New Session</h2>
-            <div class = " add">
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <label for="session_name">Session Name:</label>
-                <input type="text" id="session_name" name="session_name" required><br>
-                <label for="session_date">Date:</label>
-                <input type="datetime-local" id="session_date" name="session_date" required><br>
-                <label for="session_room">Room:</label>
-                <input type="text" id="session_room" name="session_room" required><br>
-                <label for="session_speaker">Speaker:</label>
-                <input type="text" id="session_speaker" name="session_speaker" required><br>
-                <label for="session_article">Article:</label>
-                <input type="text" id="session_article" name="session_article" required><br>
-                <button type="submit" name="add_session">Add Session</button>
-            </form>
+            <div class=" add">
+                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                    <label for="session_name">Session Name:</label>
+                    <input type="text" id="session_name" name="session_name" required><br>
+                    <label for="session_date">Date:</label>
+                    <input type="datetime-local" id="session_date" name="session_date" required><br>
+                    <label for="session_room">Room:</label>
+                    <input type="text" id="session_room" name="session_room" required><br>
+                    <label for="session_speaker">Speaker:</label>
+                    <input type="text" id="session_speaker" name="session_speaker" required><br>
+                    <label for="session_article">Article:</label>
+                    <input type="text" id="session_article" name="session_article" required><br>
+                    <button type="submit" name="add_session">Add Session</button>
+                </form>
             </div>
         </div>
     </section>
@@ -189,6 +203,7 @@ $result = $conn->query("SELECT * FROM sessions");
         <p>Ctrl+Alt+Defeat Conference © 2024</p>
     </footer>
 </body>
+
 </html>
 
 <?php

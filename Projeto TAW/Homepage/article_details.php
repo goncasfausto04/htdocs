@@ -82,6 +82,7 @@ $stmt->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -89,6 +90,7 @@ $stmt->close();
     <link rel="stylesheet" href="homepage.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -102,7 +104,8 @@ $stmt->close();
                     <li><a href="location.php">Location</a></li>
                     <li><a href="otherinfo.php">Other Informations</a></li>
                     <li>
-                        <a href="profile.php"><li style="margin-top: -7px"><img src="./images/profile.png" alt="profile" width="30px"></li></a>
+                        <a href="profile.php">
+                    <li style="margin-top: -7px"><img src="./images/profile.png" alt="profile" width="30px"></li></a>
                     </li>
                 </ul>
             </nav>
@@ -162,4 +165,5 @@ $stmt->close();
         <p>Ctrl+Alt+Defeat Conference © 2024</p>
     </footer>
 </body>
+
 </html>

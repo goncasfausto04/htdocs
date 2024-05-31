@@ -18,10 +18,7 @@
         <input type="button" id="registerfunc" class="btn" value="Register" />
       </div>
       <div class="register">
-        <form
-          action="register.php"
-          method="POST"
-        >
+        <form action="register.php" method="POST">
           <input
             type="email"
             id="email"
@@ -64,16 +61,16 @@
           />
           <input type="submit" value="Login" />
         </form>
-        <p id="error-message" style="color: red;"></p>
+        <p id="error-message" style="color: red"></p>
       </div>
       <script>
         // Get the error message from the URL query parameter
         const urlParams = new URLSearchParams(window.location.search);
-        const errorMessage = urlParams.get('error');
+        const errorMessage = urlParams.get("error");
         if (errorMessage) {
-            document.getElementById('error-message').textContent = errorMessage;
+          document.getElementById("error-message").textContent = errorMessage;
         }
-    </script>
+      </script>
     </div>
   </body>
   <script>
@@ -106,4 +103,3 @@
     });
   </script>
 </html>
-

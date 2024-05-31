@@ -197,8 +197,54 @@ $result = $conn->query("SELECT * FROM sessions");
                     <button type="submit" name="add_session">Add Session</button>
                 </form>
             </div>
+            <section id="presence">
+                <h2>Manage Presences</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Company</th>
+                            <th>Email</th>
+                            <th>Contact</th>
+                            <th>Arrival Time</th>
+                            <th>Attend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // Establish database connection (assuming you already have a database connection established)
+                        require_once '../config.php';
+
+                        // Fetch presence data from the database
+                        $result = $conn->query("SELECT * FROM user_presence");
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $row['name']; ?></td>
+                                    <td><?php echo $row['company']; ?></td>
+                                    <td><?php echo $row['email']; ?></td>
+                                    <td><?php echo $row['contact']; ?></td>
+                                    <td><?php echo $row['arrival_time']; ?></td>
+                                    <td><?php echo $row['attend']; ?></td>
+                                </tr>
+                                <?php
+                            }
+                        } else {
+                            ?>
+                            <tr>
+                                <td colspan="6">No presences found.</td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </section>
+
         </div>
     </section>
+
     <footer>
         <p>Ctrl+Alt+Defeat Conference © 2024</p>
     </footer>

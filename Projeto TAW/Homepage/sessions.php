@@ -108,7 +108,8 @@ $stmt->close();
                     <h5><?php echo htmlspecialchars($session['session']); ?></h5>
                     <h6>By <?php echo htmlspecialchars($session['speaker']); ?></h6>
                     <h6><?php echo date("d/m/Y / H:i", strtotime($session['date'])); ?> / ROOM
-                        <?php echo htmlspecialchars($session['room']); ?></h6>
+                        <?php echo htmlspecialchars($session['room']); ?>
+                    </h6>
                     <p><?php echo nl2br(htmlspecialchars($session['article'])); ?></p>
                     <a href="article_details.php?id=<?php echo $session['id']; ?>">View Details</a>
                     <hr />

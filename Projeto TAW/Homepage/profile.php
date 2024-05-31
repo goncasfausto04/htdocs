@@ -86,7 +86,7 @@ $conn->close();
 
     #edit-info-button {
       background-color: #4caf50; /* Green */
-      border: none;
+      border: 2px solid #4caf50;
       color: white;
       padding: 10px 24px;
       text-align: center;
@@ -103,6 +103,7 @@ $conn->close();
       background-color: white;
       color: black;
       border: 2px solid #4caf50;
+     
     }
   </style>
   <body>

@@ -69,6 +69,24 @@ if (!isset($_SESSION['user_id'])) {
         height: 300px;
       }
 
+      .register-presence-link {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #007bff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.register-presence-link:hover {
+  background-color: #0056b3;
+}
+      
+
       @media screen and (max-width: 768px) {
         .slider-wrapper {
           width: fit-content;
@@ -203,7 +221,9 @@ if (!isset($_SESSION['user_id'])) {
         </p>
       </div>
       <h3 style="display: flex; justify-content: center">And Much More!</h3>
+      <a href="presence_form.php" class="register-presence-link">Register Presence</a>
     </div>
+    
 
     <footer>
       <p>Ctrl+Alt+Defeat Conference © 2024</p>

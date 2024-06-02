@@ -1,83 +1,93 @@
 <?php
 session_start();
 
-// Check if the user is logged in as admin
+// Check if the user is logged in as admin or trackadmin
 if (!isset($_SESSION['user_id']) || ($_SESSION['role'] !== 'admin' && $_SESSION['role'] !== 'trackadmin')) {
     header("Location: ../register.html");
     exit();
 }
+
 require_once '../config.php';
 
-//variables for storing form submission
 $update_status = "";
 $delete_status = "";
 $add_status = "";
+$delete_presence_status = "";
 
-// handle form submission for updating sessions
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_session'])) {
-    // get session data from the form
-    $session_id = $_POST['session_id'];
-    $session_name = $_POST['session_name'];
-    $session_date = $_POST['session_date'];
-    $session_room = $_POST['session_room'];
-    $session_speaker = $_POST['session_speaker'];
-    $session_article = $_POST['session_article'];
-
-    // update session information in the db
+// Function to handle session updates
+function handleUpdateSession($conn)
+{
+    global $update_status;
     $stmt = $conn->prepare("UPDATE sessions SET session = ?, date = ?, room = ?, speaker = ?, article = ? WHERE id = ?");
-    $stmt->bind_param("sssssi", $session_name, $session_date, $session_room, $session_speaker, $session_article, $session_id);
-
+    $stmt->bind_param("sssssi", $_POST['session_name'], $_POST['session_date'], $_POST['session_room'], $_POST['session_speaker'], $_POST['session_article'], $_POST['session_id']);
     if ($stmt->execute()) {
         $update_status = "Session information updated successfully!";
     } else {
         $update_status = "Error updating session information: " . $stmt->error;
     }
-
     $stmt->close();
 }
 
-// handle form submission for deleting sessions
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_session'])) {
-    // Get session ID from the form
-    $session_id = $_POST['session_id'];
-
-    // delete session from the db
+// Function to handle session deletions
+function handleDeleteSession($conn)
+{
+    global $delete_status;
     $stmt = $conn->prepare("DELETE FROM sessions WHERE id = ?");
-    $stmt->bind_param("i", $session_id);
-
+    $stmt->bind_param("i", $_POST['session_id']);
     if ($stmt->execute()) {
         $delete_status = "Session deleted successfully!";
     } else {
         $delete_status = "Error deleting session: " . $stmt->error;
     }
-
     $stmt->close();
 }
 
-// handle form submission for adding new sessions
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_session'])) {
-    // Get session data from the form
-    $session_name = $_POST['session_name'];
-    $session_date = $_POST['session_date'];
-    $session_room = $_POST['session_room'];
-    $session_speaker = $_POST['session_speaker'];
-    $session_article = $_POST['session_article'];
-
-    // insert new session into the db
+// Function to handle adding new sessions
+function handleAddSession($conn)
+{
+    global $add_status;
     $stmt = $conn->prepare("INSERT INTO sessions (session, date, room, speaker, article) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $session_name, $session_date, $session_room, $session_speaker, $session_article);
-
+    $stmt->bind_param("sssss", $_POST['session_name'], $_POST['session_date'], $_POST['session_room'], $_POST['session_speaker'], $_POST['session_article']);
     if ($stmt->execute()) {
         $add_status = "New session added successfully!";
     } else {
         $add_status = "Error adding new session: " . $stmt->error;
     }
-
     $stmt->close();
 }
 
-// get all sessions from the db
-$result = $conn->query("SELECT * FROM sessions");
+// Function to handle deleting presences
+function handleDeletePresence($conn)
+{
+    global $delete_presence_status;
+    $stmt = $conn->prepare("DELETE FROM user_presence WHERE id = ?");
+    $stmt->bind_param("i", $_POST['presence_id']);
+    if ($stmt->execute()) {
+        $delete_presence_status = "Presence deleted successfully!";
+    } else {
+        $delete_presence_status = "Error deleting presence: " . $stmt->error;
+    }
+    $stmt->close();
+}
+
+// Handle form submissions
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['update_session'])) {
+        handleUpdateSession($conn);
+    } elseif (isset($_POST['delete_session'])) {
+        handleDeleteSession($conn);
+    } elseif (isset($_POST['add_session'])) {
+        handleAddSession($conn);
+    } elseif (isset($_POST['delete_presence'])) {
+        handleDeletePresence($conn);
+    }
+}
+
+// Get all sessions and presences from the database
+$sessions_result = $conn->query("SELECT * FROM sessions");
+$presences_result = $conn->query("SELECT * FROM user_presence");
+
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +100,7 @@ $result = $conn->query("SELECT * FROM sessions");
     <link rel="stylesheet" href="homepage.css" />
     <style>
         table {
-            width: 20%;
+            width: 100%;
             border-collapse: collapse;
         }
 
@@ -112,7 +122,8 @@ $result = $conn->query("SELECT * FROM sessions");
         .add {
             font-size: 15px;
             line-height: 2;
-            display: flex
+            display: flex;
+            flex-direction: column;
         }
     </style>
 </head>
@@ -129,11 +140,12 @@ $result = $conn->query("SELECT * FROM sessions");
                     <li><a href="sessions.php">Sessions</a></li>
                     <li><a href="location.php">Location</a></li>
                     <li><a href="otherinfo.php">Other Informations</a></li>
-                    <a href="profile.php">
-                        <li style="margin-top: -7px">
-                            <img src="./images/profile.png" alt="profile" width="30px" />
-                        </li>
-                    </a>
+                    <li>
+                        <a href="profile.php">
+                    <li style="margin-top: -7px">
+                        <img src="./images/profile1.png" alt="profile" width="30px" />
+                    </li></a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -145,6 +157,9 @@ $result = $conn->query("SELECT * FROM sessions");
             <p><?php echo $update_status; ?></p>
             <p><?php echo $delete_status; ?></p>
             <p><?php echo $add_status; ?></p>
+            <p><?php echo $delete_presence_status; ?></p>
+
+            <!-- Sessions Table -->
             <table>
                 <thead>
                     <tr>
@@ -157,19 +172,19 @@ $result = $conn->query("SELECT * FROM sessions");
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row = $result->fetch_assoc()): ?>
+                    <?php while ($row = $sessions_result->fetch_assoc()): ?>
                         <tr>
-                            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                                <td><input type="text" name="session_name" value="<?php echo $row['session']; ?>" required>
-                                </td>
+                            <form method="post" action="">
+                                <td><input type="text" name="session_name"
+                                        value="<?php echo htmlspecialchars($row['session']); ?>" required></td>
                                 <td><input type="datetime-local" name="session_date"
                                         value="<?php echo date('Y-m-d\TH:i', strtotime($row['date'])); ?>" required></td>
-                                <td><input type="text" name="session_room" value="<?php echo $row['room']; ?>" required>
-                                </td>
-                                <td><input type="text" name="session_speaker" value="<?php echo $row['speaker']; ?>"
-                                        required></td>
-                                <td><input type="text" name="session_article" value="<?php echo $row['article']; ?>"
-                                        required></td>
+                                <td><input type="text" name="session_room"
+                                        value="<?php echo htmlspecialchars($row['room']); ?>" required></td>
+                                <td><input type="text" name="session_speaker"
+                                        value="<?php echo htmlspecialchars($row['speaker']); ?>" required></td>
+                                <td><input type="text" name="session_article"
+                                        value="<?php echo htmlspecialchars($row['article']); ?>" required></td>
                                 <td>
                                     <input type="hidden" name="session_id" value="<?php echo $row['id']; ?>">
                                     <button type="submit" name="update_session">Update</button>
@@ -181,9 +196,11 @@ $result = $conn->query("SELECT * FROM sessions");
                     <?php endwhile; ?>
                 </tbody>
             </table>
+
+            <!-- Add New Session Form -->
             <h2>Add New Session</h2>
-            <div class=" add">
-                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <div class="add">
+                <form method="post" action="">
                     <label for="session_name">Session Name:</label>
                     <input type="text" id="session_name" name="session_name" required><br>
                     <label for="session_date">Date:</label>
@@ -197,7 +214,9 @@ $result = $conn->query("SELECT * FROM sessions");
                     <button type="submit" name="add_session">Add Session</button>
                 </form>
             </div>
+
             <?php if ($_SESSION['role'] === 'admin'): ?>
+                <!-- Manage Presences -->
                 <section id="presence">
                     <h2>Manage Presences</h2>
                     <table>
@@ -209,36 +228,27 @@ $result = $conn->query("SELECT * FROM sessions");
                                 <th>Contact</th>
                                 <th>Arrival Time</th>
                                 <th>Attend</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            // Establish database connection (assuming you already have a database connection established)
-                            require_once '../config.php';
-
-                            // Fetch presence data from the database
-                            $result = $conn->query("SELECT * FROM user_presence");
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $row['name']; ?></td>
-                                        <td><?php echo $row['company']; ?></td>
-                                        <td><?php echo $row['email']; ?></td>
-                                        <td><?php echo $row['contact']; ?></td>
-                                        <td><?php echo $row['arrival_time']; ?></td>
-                                        <td><?php echo $row['attend']; ?></td>
-                                    </tr>
-                                    <?php
-                                }
-                            } else {
-                                ?>
+                            <?php while ($row = $presences_result->fetch_assoc()): ?>
                                 <tr>
-                                    <td colspan="6">No presences found.</td>
+                                    <td><?php echo htmlspecialchars($row['name']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['company']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['email']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['contact']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['arrival_time']); ?></td>
+                                    <td><?php echo htmlspecialchars($row['attend']); ?></td>
+                                    <td>
+                                        <form method="post" action="">
+                                            <input type="hidden" name="presence_id" value="<?php echo $row['id']; ?>">
+                                            <button type="submit" name="delete_presence"
+                                                onclick="return confirm('Are you sure you want to delete this presence?');">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
-                                <?php
-                            }
-                            ?>
+                            <?php endwhile; ?>
                         </tbody>
                     </table>
                 </section>
@@ -252,8 +262,3 @@ $result = $conn->query("SELECT * FROM sessions");
 </body>
 
 </html>
-
-<?php
-// Close the database connection
-$conn->close();
-?>

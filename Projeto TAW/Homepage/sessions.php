@@ -35,36 +35,47 @@ $stmt->close();
     <title>Ctrl Alt Defeat Tech Conference</title>
     <link rel="stylesheet" href="homepage.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
     <style>
-        .box {
-            width: 500px;
-            height: 300px;
-            margin: 10px;
-            border: 1px solid black;
+        .session-container {
+            margin: 20px 0;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
         }
 
-        .caixa-topo {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+        .session-header {
+            margin: 0;
+            font-size: 1.25em;
         }
 
-        .caixa-baixo {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
+        .session-subheader {
+            margin: 5px 0;
+            font-size: 1em;
+            color: #555;
         }
 
-        .session {
-            line-height: normal;
+        .session-details {
+            margin: 10px 0;
+            font-size: 0.875em;
+        }
+
+        .view-details-link {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.875em;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .view-details-link:hover {
+            color: #0056b3;
         }
 
         .register-presence-link {
             display: block;
             text-align: center;
-            margin-top: 20px;
-            font-size: 18px;
+            margin: 20px 0;
+            font-size: 1em;
             text-decoration: none;
             color: #ffffff;
             background-color: #007bff;
@@ -104,19 +115,17 @@ $stmt->close();
             <h1>Sessions:</h1>
             <hr />
             <?php foreach ($sessions as $session): ?>
-                <div class="session">
-                    <h5><?php echo htmlspecialchars($session['session']); ?></h5>
-                    <h6>By <?php echo htmlspecialchars($session['speaker']); ?></h6>
-                    <h6><?php echo date("d/m/Y / H:i", strtotime($session['date'])); ?> / ROOM
-                        <?php echo htmlspecialchars($session['room']); ?>
-                    </h6>
-                    <p><?php echo nl2br(htmlspecialchars($session['article'])); ?></p>
-                    <a href="article_details.php?id=<?php echo $session['id']; ?>">View Details</a>
-                    <hr />
+                <div class="session-container">
+                    <h5 class="session-header"><?php echo htmlspecialchars($session['session']); ?></h5>
+                    <h6 class="session-subheader">By <?php echo htmlspecialchars($session['speaker']); ?></h6>
+                    <h6 class="session-subheader"><?php echo date("d/m/Y H:i", strtotime($session['date'])); ?> / ROOM
+                        <?php echo htmlspecialchars($session['room']); ?></h6>
+                    <p class="session-details"><?php echo nl2br(htmlspecialchars($session['article'])); ?></p>
+                    <a href="article_details.php?id=<?php echo $session['id']; ?>" class="view-details-link">View
+                        Details</a>
                 </div>
             <?php endforeach; ?>
             <a href="presence_form.php" class="register-presence-link">Register Presence</a>
-
         </div>
     </section>
     <footer>

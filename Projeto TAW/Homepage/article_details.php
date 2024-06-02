@@ -100,7 +100,7 @@ $stmt->close();
             <nav>
                 <ul>
                     <li><a href="homepage.php">Home</a></li>
-                    <li><a href="sessions.php">Sessions</a></li>
+                    <li class="current"><a href="sessions.php">Sessions</a></li>
                     <li><a href="location.php">Location</a></li>
                     <li><a href="otherinfo.php">Other Informations</a></li>
                     <li>

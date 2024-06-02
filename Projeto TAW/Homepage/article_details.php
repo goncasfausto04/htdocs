@@ -142,8 +142,7 @@ $stmt->close();
                             <button type="submit">Submit Answer</button>
                         </form>
                     <?php endif; ?>
-
-                    <?php if (isset($_SESSION['role']) && ($_SESSION['role'] === 'admin')): ?>
+                    <?php if (isset($_SESSION['role']) && ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'trackadmin')): ?>
                         <br>
                         <form method="post" action="" style="display:inline;">
                             <input type="hidden" name="question_id" value="<?php echo $question['id']; ?>">

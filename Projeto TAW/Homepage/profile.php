@@ -156,7 +156,7 @@ $conn->close();
           <button type="submit" id="edit-info-button">Log Out</button>
         </form>
         <p><?php echo $update_status; ?></p>
-        <?php if ($current_role === 'admin'): ?>
+        <?php if ($current_role === 'admin' || $current_role === 'trackadmin'): ?>
           <a href="admin.php">Go to Admin Page</a>
         <?php endif; ?>
       </div>

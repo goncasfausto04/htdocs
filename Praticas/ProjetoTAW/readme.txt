@@ -13,7 +13,7 @@ Web application for a conference, to enter first open the register.php to either
 Once the login is done a session will be created and you will be redirected to homepage.php where you
 can navigate the web page and choose between the different pages we made.
 admin account: admin@gmail.com pass: 12345
-trackadmin account : trackadmin@gmail.com 12345
+trackadmin account : trackadmin@gmail.com pass: 12345
 
 The sessions.php is filled with information from the database we created and each article will have its
 details pages where you can ask questions which will be managed and answeared by admins or trackadmins

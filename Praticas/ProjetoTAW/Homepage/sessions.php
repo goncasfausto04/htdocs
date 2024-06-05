@@ -36,6 +36,10 @@ $stmt->close();
     <link rel="stylesheet" href="homepage.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
+        body {
+            height: 250vh;
+        }
+
         .session-container {
             margin: 20px 0;
             padding: 10px;
@@ -119,7 +123,8 @@ $stmt->close();
                     <h5 class="session-header"><?php echo htmlspecialchars($session['session']); ?></h5>
                     <h6 class="session-subheader">By <?php echo htmlspecialchars($session['speaker']); ?></h6>
                     <h6 class="session-subheader"><?php echo date("d/m/Y H:i", strtotime($session['date'])); ?> / ROOM
-                        <?php echo htmlspecialchars($session['room']); ?></h6>
+                        <?php echo htmlspecialchars($session['room']); ?>
+                    </h6>
                     <p class="session-details"><?php echo nl2br(htmlspecialchars($session['article'])); ?></p>
                     <a href="article_details.php?id=<?php echo $session['id']; ?>" class="view-details-link">View
                         Details</a>

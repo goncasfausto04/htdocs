@@ -24,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Hash the password
+    //convert the password into a long string of random characters
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Prepare and bind
+    //prepare the SQL query and bind the parameters
     $stmt = $conn->prepare("INSERT INTO accounts (email, password) VALUES (?, ?)");
     $stmt->bind_param("ss", $email, $hashed_password);
 

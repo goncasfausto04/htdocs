@@ -9,7 +9,7 @@ Bernardo Coelho
 
 Description:
 
-Web application for a conference, to enter first open the register.php to either login or register.
+Web application for a conference, to enter first open the register.html with your browser to either login or register.
 Once the login is done a session will be created and you will be redirected to homepage.php where you
 can navigate the web page and choose between the different pages we made.
 admin account: admin@gmail.com pass: 12345

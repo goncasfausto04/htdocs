@@ -110,6 +110,27 @@ $conn->close();
     border: 2px solid #4caf50;
 
   }
+
+  .button-like {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid #007bff;
+    transition-duration: 0.4s;
+  }
+
+  .button-like:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid #007bff;
+  }
 </style>
 
 <body>
@@ -144,20 +165,20 @@ $conn->close();
         <h2>Email: <?php echo $current_email; ?></h2>
         <button id="edit-info-button">Edit Info</button>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" id="edit-info-form"
-          style="display: none;">
+          style="display: none;"><br>
           <label for="new_name">New Name:</label>
-          <input type="text" id="new_name" name="new_name" value="<?php echo $current_name; ?>" required>
+          <input type="text" id="new_name" name="new_name" value="<?php echo $current_name; ?>" required><br><br>
           <label for="new_email">New Email:</label>
-          <input type="email" id="new_email" name="new_email" value="<?php echo $current_email; ?>" required>
-          <button type="submit">Save Changes</button>
+          <input type="email" id="new_email" name="new_email" value="<?php echo $current_email; ?>" required><br><br>
+          <button type="submit" class="button-like">Save Changes</button>
         </form>
-        <p><?php echo $update_status; ?></p> <!-- Display update status message -->
-        <form method="post" action="../logout.php"> <!-- Assuming logout.php handles logout functionality -->
+        <p><?php echo $update_status; ?></p> 
+        <form method="post" action="../logout.php">
           <button type="submit" id="edit-info-button">Log Out</button>
         </form>
-        <p><?php echo $update_status; ?></p>
+        <br>
         <?php if ($current_role === 'admin' || $current_role === 'trackadmin'): ?>
-          <a href="admin.php">Go to Admin Page</a>
+          <a href="admin.php" class="button-like">Admin Page</a>
         <?php endif; ?>
       </div>
     </div>
